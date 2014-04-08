@@ -14,7 +14,7 @@ namespace HttpCore
     /// 封装http访问参数对象和帮助对象
     /// 通过继承，实现方便、可扩展和可维护的具体访问类
     /// </summary>
-    public abstract class BaseControl
+    public class BaseControl
     {
 
         #region 访问参数
@@ -31,19 +31,20 @@ namespace HttpCore
 
         #endregion
 
-        #region 访问参数设置
+        #region 访问参数设置（设置HttpItem & URL）
 
+        //设置访问实体
         /// <summary>
         /// 设置访问实体
         /// </summary>
-        /// <param name="encoding"></param>
-        /// <param name="method"></param>
-        /// <param name="userAgent"></param>
-        /// <param name="accept"></param>
-        /// <param name="contentType"></param>
-        /// <param name="resultType"></param>
-        /// <param name="allowautoredirect"></param>
-        /// <param name="cookieString"></param>
+        /// <param name="encoding">编码</param>
+        /// <param name="method">Get | Post</param>
+        /// <param name="userAgent">默认</param>
+        /// <param name="accept">默认</param>
+        /// <param name="contentType">内容类型：text/html</param>
+        /// <param name="resultType">返回值类型：ResultType.String</param>
+        /// <param name="allowautoredirect">允许重定向</param>
+        /// <param name="cookieString">cookie</param>
         public virtual void SetHttpItem(Encoding encoding = null, string method = "GET", string userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.22 Safari/537.36",
                                         string accept = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
                                         string contentType = "text/html",
@@ -61,6 +62,7 @@ namespace HttpCore
             CurrentHttpItem.Cookie = cookieString;
         }
 
+        //设置访问url
         /// <summary>
         /// 设置访问url
         /// </summary>
@@ -74,6 +76,7 @@ namespace HttpCore
 
         #region 抓取网页源码
 
+        //根据设置抓取网页源码
         /// <summary>
         /// 根据设置抓取网页源码
         /// </summary>
@@ -85,7 +88,7 @@ namespace HttpCore
 
         #endregion
 
-        #region 匹配获取需要的数据
+        #region 匹配获取需要的数据 UseRegex
 
         /// <summary>
         /// 匹配单个正则

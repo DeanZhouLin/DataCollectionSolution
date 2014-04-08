@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseControl.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="QuNarFlightControl\QuNarFlightEntity.cs" />
     <Compile Include="QuNarFlightControl\QuNarFlightControl.cs" />
     <Compile Include="HttpHelper.cs" />

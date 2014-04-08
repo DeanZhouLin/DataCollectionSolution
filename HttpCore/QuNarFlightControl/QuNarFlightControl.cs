@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Web;
+using HttpCore.Annotations;
 
 namespace HttpCore
 {
     public sealed class QuNarFlightControl : BaseControl
     {
-        private string FlightRegex { get; set; }
+        private string FlightRegex { [UsedImplicitly] get; set; }
 
         private string UrlTemplate { get; set; }
 
@@ -23,8 +24,6 @@ namespace HttpCore
         #endregion
 
         #region 方法区
-
-
 
         private void SetUrl(string from, string to, int getCount = 1)
         {
