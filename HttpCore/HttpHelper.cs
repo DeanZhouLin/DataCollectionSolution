@@ -14,14 +14,14 @@ namespace HttpCore
     /// </summary>
     public class HttpHelper
     {
-        #region 预定义方法或者变更
-
         //默认的编码
         private Encoding _encoding = Encoding.Default;
         //Post数据编码
         private Encoding _postencoding = Encoding.Default;
+
         //HttpWebRequest对象用来发起请求
         private HttpWebRequest _request;
+
         //获取影响流的数据对象
         private HttpWebResponse _response;
 
@@ -52,8 +52,6 @@ namespace HttpCore
             }
             try
             {
-                #region 得到请求的response
-
                 using (_response = (HttpWebResponse)_request.GetResponse())
                 {
                     result.StatusCode = _response.StatusCode;
@@ -88,7 +86,6 @@ namespace HttpCore
                     //得到返回的HTML
                     result.Html = _encoding.GetString(rawResponse);
                 }
-                #endregion
             }
             catch (WebException ex)
             {
@@ -297,9 +294,8 @@ namespace HttpCore
         /// <param name="chain">X509Chain</param>
         /// <param name="errors">SslPolicyErrors</param>
         /// <returns>bool</returns>
-        public bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors) { return true; }
+        private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors) { return true; }
 
-        #endregion
     }
 
     /// <summary>
@@ -307,15 +303,11 @@ namespace HttpCore
     /// </summary>
     public class HttpItem
     {
-        string _url = string.Empty;
         /// <summary>
         /// 请求URL必须填写
         /// </summary>
-        public string URL
-        {
-            get { return _url; }
-            set { _url = value; }
-        }
+        public string URL { get; set; }
+
         string _method = "GET";
         /// <summary>
         /// 请求方式默认为GET方式,当为POST方式时必须设置Postdata的值
@@ -325,6 +317,7 @@ namespace HttpCore
             get { return _method; }
             set { _method = value; }
         }
+
         int _timeout = 100000;
         /// <summary>
         /// 默认请求超时时间
@@ -334,6 +327,7 @@ namespace HttpCore
             get { return _timeout; }
             set { _timeout = value; }
         }
+
         int _readWriteTimeout = 30000;
         /// <summary>
         /// 默认写入Post数据超时间
@@ -343,6 +337,7 @@ namespace HttpCore
             get { return _readWriteTimeout; }
             set { _readWriteTimeout = value; }
         }
+
         string _accept = "text/html, application/xhtml+xml, */*";
         /// <summary>
         /// 请求标头值 默认为text/html, application/xhtml+xml, */*
@@ -352,6 +347,7 @@ namespace HttpCore
             get { return _accept; }
             set { _accept = value; }
         }
+
         string _contentType = "text/html";
         /// <summary>
         /// 请求返回类型默认 text/html
@@ -361,6 +357,7 @@ namespace HttpCore
             get { return _contentType; }
             set { _contentType = value; }
         }
+
         string _userAgent = "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)";
         /// <summary>
         /// 客户端访问信息默认Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)
@@ -385,6 +382,7 @@ namespace HttpCore
             get { return _postDataType; }
             set { _postDataType = value; }
         }
+
         string _postdata = string.Empty;
         /// <summary>
         /// Post请求时要发送的字符串Post数据
@@ -414,6 +412,7 @@ namespace HttpCore
             get { return _cookie; }
             set { _cookie = value; }
         }
+
         string _referer = string.Empty;
         /// <summary>
         /// 来源地址，上次访问地址
@@ -423,6 +422,7 @@ namespace HttpCore
             get { return _referer; }
             set { _referer = value; }
         }
+
         string _cerPath = string.Empty;
         /// <summary>
         /// 证书绝对路径
@@ -452,33 +452,22 @@ namespace HttpCore
             get { return _connectionlimit; }
             set { _connectionlimit = value; }
         }
-        private string _proxyusername = string.Empty;
+
         /// <summary>
         /// 代理Proxy 服务器用户名
         /// </summary>
-        public string ProxyUserName
-        {
-            get { return _proxyusername; }
-            set { _proxyusername = value; }
-        }
-        private string _proxypwd = string.Empty;
+        public string ProxyUserName { get; set; }
+
         /// <summary>
         /// 代理 服务器密码
         /// </summary>
-        public string ProxyPwd
-        {
-            get { return _proxypwd; }
-            set { _proxypwd = value; }
-        }
-        private string _proxyip = string.Empty;
+        public string ProxyPwd { get; set; }
+
         /// <summary>
         /// 代理 服务IP
         /// </summary>
-        public string ProxyIp
-        {
-            get { return _proxyip; }
-            set { _proxyip = value; }
-        }
+        public string ProxyIp { get; set; }
+
         private ResultType _resulttype = ResultType.String;
         /// <summary>
         /// 设置返回类型String和Byte
@@ -488,6 +477,7 @@ namespace HttpCore
             get { return _resulttype; }
             set { _resulttype = value; }
         }
+
         private WebHeaderCollection _header = new WebHeaderCollection();
         /// <summary>
         /// header对象
@@ -499,7 +489,7 @@ namespace HttpCore
         }
 
         /// <summary>
-        //     获取或设置用于请求的 HTTP 版本。返回结果:用于请求的 HTTP 版本。默认为 System.Net.HttpVersion.Version11。
+        /// 获取或设置用于请求的 HTTP 版本。返回结果:用于请求的 HTTP 版本。默认为 System.Net.HttpVersion.Version11。
         /// </summary>
         public Version ProtocolVersion { get; set; }
 
@@ -520,6 +510,7 @@ namespace HttpCore
 
         public HttpItem()
         {
+            URL = string.Empty;
             Allowautoredirect = false;
             IsToLower = false;
             CookieCollection = null;
@@ -582,6 +573,7 @@ namespace HttpCore
         /// 表示只返回字符串 只有Html有数据
         /// </summary>
         String,
+
         /// <summary>
         /// 表示返回字符串和字节流 ResultByte和Html都有数据返回
         /// </summary>
@@ -597,10 +589,12 @@ namespace HttpCore
         /// 字符串类型，这时编码Encoding可不设置
         /// </summary>
         String,
+
         /// <summary>
         /// Byte类型，需要设置PostdataByte参数的值编码Encoding可设置为空
         /// </summary>
         Byte,
+
         /// <summary>
         /// 传文件，Postdata必须设置为文件的绝对路径，必须设置Encoding的值
         /// </summary>

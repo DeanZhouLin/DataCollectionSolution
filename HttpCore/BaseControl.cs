@@ -16,9 +16,6 @@ namespace HttpCore
     /// </summary>
     public class BaseControl
     {
-
-        #region 访问参数
-
         /// <summary>
         /// 访问实体
         /// </summary>
@@ -29,11 +26,6 @@ namespace HttpCore
         /// </summary>
         protected HttpHelper CurrentHttpHelper { get; set; }
 
-        #endregion
-
-        #region 访问参数设置（设置HttpItem & URL）
-
-        //设置访问实体
         /// <summary>
         /// 设置访问实体
         /// </summary>
@@ -45,12 +37,12 @@ namespace HttpCore
         /// <param name="resultType">返回值类型：ResultType.String</param>
         /// <param name="allowautoredirect">允许重定向</param>
         /// <param name="cookieString">cookie</param>
-        public virtual void SetHttpItem(Encoding encoding = null, string method = "GET", string userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.22 Safari/537.36",
-                                        string accept = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-                                        string contentType = "text/html",
-                                        ResultType resultType = ResultType.String,
-                                        bool allowautoredirect = false,
-                                        string cookieString = "")
+        public virtual void SetHttpItem(
+            Encoding encoding = null, string method = "GET",
+            string userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.22 Safari/537.36",
+            string accept = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            string contentType = "text/html", ResultType resultType = ResultType.String,
+            bool allowautoredirect = false, string cookieString = "")
         {
             CurrentHttpItem.ContentType = contentType;
             CurrentHttpItem.Method = method;
@@ -62,7 +54,6 @@ namespace HttpCore
             CurrentHttpItem.Cookie = cookieString;
         }
 
-        //设置访问url
         /// <summary>
         /// 设置访问url
         /// </summary>
@@ -72,11 +63,6 @@ namespace HttpCore
             CurrentHttpItem.URL = url;
         }
 
-        #endregion
-
-        #region 抓取网页源码
-
-        //根据设置抓取网页源码
         /// <summary>
         /// 根据设置抓取网页源码
         /// </summary>
@@ -85,10 +71,6 @@ namespace HttpCore
         {
             return CurrentHttpHelper.GetHtml(CurrentHttpItem).Html;
         }
-
-        #endregion
-
-        #region 匹配获取需要的数据 UseRegex
 
         /// <summary>
         /// 匹配单个正则
@@ -143,8 +125,5 @@ namespace HttpCore
                 return new List<T>();
             }
         }
-
-        #endregion
-
     }
 }

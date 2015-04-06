@@ -10,20 +10,20 @@ namespace AsyncRegexHelper
     /// </summary>
     public class AsynchronousRegex
     {
-        private MatchCollection mc;
+        private MatchCollection _mc;
         private readonly int _timeout;        // 最长休眠时间(超时),毫秒
-        private int sleepCounter;
-        private readonly int sleepInterval;    // 休眠间隔,毫秒
+        private int _sleepCounter;
+        private readonly int _sleepInterval;    // 休眠间隔,毫秒
 
         public bool IsTimeout { get; private set; }
 
         public AsynchronousRegex(int timeout)
         {
             _timeout = timeout;
-            sleepCounter = 0;
-            sleepInterval = 100;
+            _sleepCounter = 0;
+            _sleepInterval = 100;
             IsTimeout = false;
-            mc = null;
+            _mc = null;
         }
 
         public MatchCollection Matchs(Regex regex, string input)
@@ -34,7 +34,7 @@ namespace AsyncRegexHelper
             var t = new Thread(r.Matchs);
             t.Start();
             Sleep(t);
-            return mc;
+            return _mc;
         }
 
         private void Sleep(Thread t)
@@ -42,9 +42,9 @@ namespace AsyncRegexHelper
             while (true)
             {
                 if (t == null || !t.IsAlive) return;
-                Thread.Sleep(TimeSpan.FromMilliseconds(sleepInterval));
-                sleepCounter++;
-                if (sleepCounter * sleepInterval >= _timeout)
+                Thread.Sleep(TimeSpan.FromMilliseconds(_sleepInterval));
+                _sleepCounter++;
+                if (_sleepCounter * _sleepInterval >= _timeout)
                 {
                     t.Abort();
                     IsTimeout = true;
@@ -59,7 +59,7 @@ namespace AsyncRegexHelper
 
         private void MatchCompleteHandler(MatchCollection matchCollection)
         {
-            mc = matchCollection;
+            _mc = matchCollection;
         }
 
         class Reg
